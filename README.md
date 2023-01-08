@@ -2,30 +2,43 @@
 
 A simple Python package for scrapping images from Google Image Search
 
-## Usage
+## Installation
 
-### The package is not installable (yet). One needs to manually clone this repository
-
-After cloning the repository, install requirements by running
+The package is available for pip installation
 
 ```bash
-pip install -r requirements.txt
+pip install easy_scrap
 ```
 
-A basic example of scrapping images can be found in ```example.py```
+## Usage
 
-## Functionality
-
-The main class is ```src.scrapper.GoogleImageScrapper```. It takes a query as argument, creates a 
-link to google images search & scraps urls that contain specified extensions. Then it opens those
-urls and saves their contents locally. Folders for saving the images will be created on the 
+The main class is ```GoogleImageScrapper```, which takes query as argument, searches for image
+links and downloads them to a separate folder. Folders for saving the images will be created on the
 runtime.
 
+A basic example of usage
+
+```python
+from easy_scrap import GoogleImageScrapper
+
+query = "fruits"
+save_folder_name = "fruit"
+n_images = 100
+
+# parse Google Image Search html page for image links
+scrapper = GoogleImageScrapper(query=query,
+                               save_folder_name=save_folder_name,
+                               n_images=n_images)
+
+# download and save images
+scrapper.download_all_images()
+```
 
 ## TODOs
 
 - Add option to parse queries from the shell
 - Add other search systems
 - Try asynchronous download for speed boost
+- Handle issue when first 3 downloaded images are some Google icons
 
 
