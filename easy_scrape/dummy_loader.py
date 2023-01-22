@@ -1,5 +1,5 @@
 """
-Utils for parsing html string and its substrings
+Utils for parsing html string and its substrings via requests library
 """
 
 import requests
@@ -25,11 +25,12 @@ def scan_page(html, extensions, n_max):
     """
     end = -1
     image_links = []
+    if not html:
+        raise ValueError("Please provide a non-empty html to parse")
     while len(image_links) < n_max:
         start = html.find('"https://', end + 1) + 1  # The link starts with " and ends with it too
         end = html.find('"', start)
         candidate_link = (html[start:end])
-
         if image_links:
             if candidate_link == image_links[0]:  # Stop if html is exhausted
                 break
